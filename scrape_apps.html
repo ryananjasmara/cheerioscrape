@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Search Scraper</title>
+</head>
+
+<body>
+  <h1>Google Search Scraper</h1>
+
+  <!-- Input form for search query -->
+  <form id="search-form">
+    <label for="query">Enter a search query:</label>
+    <input type="text" id="query" required>
+    <button type="submit">Search</button>
+  </form>
+
+  <!-- Display search results here -->
+  <div id="results"></div>
+
+  <script>
+    document.getElementById('search-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const query = document.getElementById('query').value;
+
+      try {
+        const response = await fetch(`http://localhost:3000/search?query=${encodeURIComponent(query)}`);
+        const data = await response.text();
+        document.getElementById('results').innerHTML = data;
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  </script>
+</body>
+
+</html>
